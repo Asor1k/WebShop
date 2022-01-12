@@ -3,8 +3,5 @@ h1{
 }
 table
 {
-  width: 320px;
-  padding: 10px;
-  border: 2px solid black;
-  margin: 0;
+  padding: 50px;
 }
