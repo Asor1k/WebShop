@@ -1,9 +1,10 @@
 h1{
-  margin: auto;
+  margin-left: 40%;
 }
-div {
-  width: 300px;
-  border: 15px solid green;
-  padding: 50px;
-  margin: 20px;
+table
+{
+  width: 320px;
+  padding: 10px;
+  border: 2px solid black;
+  margin: 0;
 }
