@@ -1,7 +1,13 @@
 h1{
   margin-left: 40%;
 }
-table
+td
 {
-  padding: 50px;
+  padding: 15px;
+}
+div {
+  width: 326px;
+  padding: 10px;
+  border: 2px solid black;
+  margin: 0;
 }
