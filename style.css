@@ -1,3 +1,12 @@
+*{
+  margin:0; padding:0;
+}
+  body {
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.competitivefutures.com%2Fwp-content%2Fuploads%2F2015%2F04%2F1920x1080-light-blue-solid-color-background.jpg&f=1&nofb=1%22");
+  background-color: lightblue;
+  font: 16px Arial, Helvetica, sans-serif;
+  padding: 15px 30px;
+}
 h1{
   width:auto;
   margin-top: 0;
@@ -12,34 +21,36 @@ h2
 {
   font-family: sans-serif;
 }
-p
+p.sub-title
 {
     font-family: helvetica;
     font-size: 30px;
     font-weight: normal;
     font-variant: small-caps;
 }
-td
+table  {
+  border-spacing: 10px;
+	border-color: blue;
+}
+table td
 {
   padding: 5px;
+  max-height: 250px;
 }
 
-div {
-  width: 100%;
-  height: auto;
-  max-height: 250px;
-  font-size: 70%;
-  border: 2px solid black;
+td > p {
+
+  font-size: 1.2em;
+  border: 1px solid black;
   background-color: lightgrey;
   margin: 0;
+  /* margin: 10px auto;
+  border: 1px solid red;
+  font: 1.2em Arial, Helvetica, sans-serif; */
+  padding: 6px 12px;
 }
-img{
+
+td img{
   width:100%;
-  height:auto;
-  max-height: 300px;
   min-height: 150px;
-}
-body {
-  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.competitivefutures.com%2Fwp-content%2Fuploads%2F2015%2F04%2F1920x1080-light-blue-solid-color-background.jpg&f=1&nofb=1%22");
-  background-color: lightblue;
 }
