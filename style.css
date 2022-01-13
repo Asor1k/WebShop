@@ -1,9 +1,29 @@
 h1{
+  width:auto;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+
+  text-align: center;
+  font-family: sans-serif;
+}
+h2
+{
+  font-family: sans-serif;
+}
+p
+{
+    font-family: helvetica;
+    font-size: 30px;
+    font-weight: normal;
+    font-variant: small-caps;
 }
 td
 {
   padding: 5px;
 }
+
 div {
   width: 100%;
   height: auto;
@@ -18,4 +38,8 @@ img{
   height:auto;
   max-height: 300px;
   min-height: 150px;
+}
+body {
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.competitivefutures.com%2Fwp-content%2Fuploads%2F2015%2F04%2F1920x1080-light-blue-solid-color-background.jpg&f=1&nofb=1%22");
+  background-color: lightblue;
 }
