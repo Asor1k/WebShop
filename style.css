@@ -1,75 +1,56 @@
+*{
+  margin:0; padding:0;
+}
+  body {
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.competitivefutures.com%2Fwp-content%2Fuploads%2F2015%2F04%2F1920x1080-light-blue-solid-color-background.jpg&f=1&nofb=1%22");
+  background-color: lightblue;
+  font: 16px Arial, Helvetica, sans-serif;
+  padding: 15px 30px;
+}
 h1{
   width:auto;
   margin-top: 0;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 0;
-  font-size: 30px;
+
   text-align: center;
   font-family: sans-serif;
 }
 h2
 {
   font-family: sans-serif;
-  text-decoration: underline;
 }
-h3
-{
-  font-size: 30px;
-  text-transform: capitalize;
-}
-p
+p.sub-title
 {
     font-family: helvetica;
-}
-p.intro
-{
-  font-size: 30px;
-  font-weight: normal;
-  font-variant: small-caps;
-}
-p.small
-{
-    text-indent: 30px;
-    font-size: 15px;
+    font-size: 30px;
     font-weight: normal;
+    font-variant: small-caps;
 }
-div.sources{
-  font-family: helvetica;
-  font-size: 20px;
-  font-weight: normal;
-  font-variant: small-caps;
+table  {
+  border-spacing: 10px;
+	border-color: blue;
 }
-div.item {
-  width: 100%;
-  height: auto;
-  max-height: 250px;
-  font-size: 70%;
-  border: 2px solid black;
-  background-color: lightgrey;
-  margin: 0;
-}
-td
+table td
 {
   padding: 5px;
+  max-height: 250px;
 }
 
-ul{
-  list-style-type: disc;
-  list-style-position: inside;
+td > p {
+
+  font-size: 1.2em;
+  border: 1px solid black;
+  background-color: lightgrey;
+  margin: 0;
+  /* margin: 10px auto;
+  border: 1px solid red;
+  font: 1.2em Arial, Helvetica, sans-serif; */
+  padding: 6px 12px;
 }
 
-li{
-  font-size: 20px;
-}
-
-img{
+td img{
   width:100%;
-  height:auto;
-  max-height: 300px;
   min-height: 150px;
-}
-body {
-  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.competitivefutures.com%2Fwp-content%2Fuploads%2F2015%2F04%2F1920x1080-light-blue-solid-color-background.jpg&f=1&nofb=1%22");
-  background-color: lightblue;
 }
