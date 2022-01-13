@@ -1,3 +1,12 @@
+*{
+  margin:0; padding:0;
+}
+body {
+  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.competitivefutures.com%2Fwp-content%2Fuploads%2F2015%2F04%2F1920x1080-light-blue-solid-color-background.jpg&f=1&nofb=1%22");
+  background-color: lightblue;
+  font: 16px Arial, Helvetica, sans-serif;
+  padding: 15px 30px;
+}
 h1{
   width:auto;
   margin-top: 0;
@@ -34,6 +43,44 @@ p.small
     font-size: 15px;
     font-weight: normal;
 }
+p.sub-title
+{
+    font-family: helvetica;
+    font-size: 30px;
+    font-weight: normal;
+    font-variant: small-caps;
+}
+
+td
+{
+  padding: 5px;
+}
+table  {
+  border-spacing: 10px;
+	border-color: blue;
+}
+table td
+{
+  padding: 5px;
+  max-height: 250px;
+}
+
+td > p {
+
+  font-size: 1.2em;
+  border: 1px solid black;
+  background-color: lightgrey;
+  margin: 0;
+  /* margin: 10px auto;
+  border: 1px solid red;
+  font: 1.2em Arial, Helvetica, sans-serif; */
+  padding: 6px 12px;
+}
+
+td img{
+  width:100%;
+  min-height: 150px;
+}
 div.sources{
   font-family: helvetica;
   font-size: 20px;
@@ -48,10 +95,6 @@ div.item {
   border: 2px solid black;
   background-color: lightgrey;
   margin: 0;
-}
-td
-{
-  padding: 5px;
 }
 
 ul{
