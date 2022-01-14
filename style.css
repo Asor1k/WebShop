@@ -30,8 +30,9 @@ p.sub-title
     font-variant: small-caps;
 }
 table  {
-  border-spacing: 10px;
+  border-spacing: 20px;
 	border-color: blue;
+  width:90%;
 }
 table td
 {
