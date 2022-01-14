@@ -43,11 +43,11 @@ ul{
 ul.why{
 }
 ul.sources{
-  list-style: square inside url("https://cdn.icon-icons.com/icons2/2348/PNG/32/link_icon_142996.png")
-    font-size: 20px;
+  list-style: square inside url("https://cdn.icon-icons.com/icons2/2348/PNG/32/link_icon_142996.png");
+  font-size: 20px;
 }
 p{
-    font-family: helvetica;
+  font-family: helvetica;
 }
 p.intro{
   font-size: 30px;
@@ -71,9 +71,9 @@ p.small{
 
 p.sub-title
 {
-    font-size: 30px;
-    font-weight: normal;
-    font-variant: small-caps;
+  font-size: 30px;
+  font-weight: normal;
+  font-variant: small-caps;
 }
 
 table  {
