@@ -3,7 +3,7 @@
 }
 body {
   background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.competitivefutures.com%2Fwp-content%2Fuploads%2F2015%2F04%2F1920x1080-light-blue-solid-color-background.jpg&f=1&nofb=1%22");
-  background-color: lightblue;
+  background: rgb(173,216,230);
   font: 16px Arial, Helvetica, sans-serif;
   padding: 15px 30px;
 }
@@ -16,29 +16,35 @@ h1{
   text-align: center;
   font-family: sans-serif;
   font-size: 30px;
+  color: rgb(0,30,120);
 }
 h2
 {
   font-family: sans-serif;
-  text-decoration: underline;
+  color: rgb(0,30,120);
 }
 h3{
   font-family: sans-serif;
   text-transform: capitalize;
   font-size: 30px;
+  color: rgb(0,30,120);
 }
 
-li{
+li.why{
   list-style-type:disc;
   list-style-position:inside;
+  list-style-image:url("https://www.shareicon.net/data/16x16/2016/07/25/801542_wink_512x512.png");
   background-repeat: no-repeat;
 	background-position: left center;
 }
 ul{
   margin: 10px 50px 20px;
 }
+ul.why{
+}
 ul.sources{
-    list-style-image:url("https://cdn.icon-icons.com/icons2/2348/PNG/32/link_icon_142996.png");
+  list-style: square inside url("https://cdn.icon-icons.com/icons2/2348/PNG/32/link_icon_142996.png")
+    font-size: 20px;
 }
 p{
     font-family: helvetica;
@@ -48,8 +54,15 @@ p.intro{
   font-weight: normal;
   font-variant: small-caps;
   font-style: italic;
-}
 
+  text-decoration: underline;
+  color: rgb(0,30,120);
+}
+img.decorImg{
+  float:right;
+  width: 20vw;
+  vertical-align: top;
+}
 p.small{
     font-size: 15px;
     font-weight: normal;
@@ -67,11 +80,19 @@ table  {
   border-spacing: 20px;
 	border-color: blue;
   width:90%;
+  caption-side: top;
 }
-table td
+table td.item
 {
+  border-style: inset;
   padding: 5px;
   max-height: 250px;
+}
+
+table caption{
+  font-size: 30px;
+  font-weight: bold;
+  color: rgb(0,30,120);
 }
 
 td > p {
@@ -86,7 +107,33 @@ td > p {
   padding: 6px 12px;
 }
 
+a:link {
+  color: #0000EE;
+}
+
+a:visited {
+  color: #551A8B;
+}
+
+a:hover {
+  color: #006FFF;
+}
+
+a:active {
+  color: #FF0000;
+}
+input:focus{
+  background-color: lightgrey;
+  color:black;
+}
+
 td img{
   width:100%;
   min-height: 150px;
+}
+
+@media print {
+  h1 {page-break-before: always; widows:1;}
+  footer {page-break-after: always;}
+  ul.sources{orphans: 3;}
 }

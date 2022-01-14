@@ -9,12 +9,15 @@
 <section>
 <h1><strong>Online <em>mobile</em> Shop</strong> </h1>
 <h2><em>This is the one where you find your phone</em></h2>
-<br><br>
+<br><img class="decorImg" src="https://bgr.com/wp-content/uploads/2021/06/prime-day-phone-deals.jpg?quality=82&strip=all&w=1440&h=810&crop=1">
+<br>
+
 <p class="intro"> Why us?
-<ul><br>
-  <li> The best products</li>
-  <li> Fast compare between phones</li>
-  <li> Beautiful website! </li>
+
+<ul class="why"><br>
+  <li class="why"> The best products</li>
+  <li class="why"> Fast compare between phones</li>
+  <li class="why"> Beautiful website! </li>
 </ul>
 </p>
 </section>
@@ -23,19 +26,21 @@
 <p class="small">
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Iam illud quale tandem est, bona praeterita non effluere sapienti, mala meminisse non oportere? Duo Reges: constructio interrete. Si enim ad populum me vocas, eum. Ex quo, id quod omnes expetunt, beate vivendi ratio inveniri et comparari potest. Compensabatur, inquit, cum summis doloribus laetitia. Sumenda potius quam expetenda. Tanta vis admonitionis inest in locis; Vulgo enim dicitur: Iucundi acti labores, nec male Euripidesconcludam.
 </p><section>
+<br>
 
 <table>
+  <caption>Products:</caption>
 <tbody>
 <tr>
 
-<td><img src="https://m.media-amazon.com/images/I/81gybZe2ArL._AC_SL1500_.jpg"/>
+<td class="item"><img src="https://m.media-amazon.com/images/I/81gybZe2ArL._AC_SL1500_.jpg"/>
 <p>Brand: Google Pixel</p>
 <p>OS: Android</p>
 <p>Model: Google Smartphone Pixel 511</p>
 <p> Screensize: 6" </p>
 </td>
 
-<td>
+<td class="item">
 
 <img src="https://m.media-amazon.com/images/I/81gybZe2ArL._AC_SL1500_.jpg"/>
 <p>Brand: Google Pixel</p>
@@ -45,7 +50,7 @@
 
 </td>
 
-<td>
+<td class="item">
 
 <img src="https://m.media-amazon.com/images/I/81gybZe2ArL._AC_SL1500_.jpg"/>
 <p>Brand: Google Pixel</p>
@@ -55,7 +60,7 @@
 
 </td>
 
-<td>
+<td class="item">
 <img src="https://m.media-amazon.com/images/I/81gybZe2ArL._AC_SL1500_.jpg"/>
 <p>Brand: Google Pixel</p>
 <p>OS: Android</p>
@@ -63,7 +68,7 @@
 <p> Screensize: 6" </p>
 
 </td>
-<td>
+<td class="item"  >
 
 <img src="https://m.media-amazon.com/images/I/81gybZe2ArL._AC_SL1500_.jpg"/>
 <p>Brand: Google Pixel</p>
@@ -75,15 +80,15 @@
 <td>
 <form action="https://wt.ops.labs.vu.nl/api22/df0ea8cd" method="post">
   <label for="brand">Brand:</label><br>
-  <input type="text" id="brand" name="brand" placeholder="Apple"><br>
+  <input type="text" id="brand" name="brand" placeholder="Apple" required><br>
   <label for="model">Model:</label><br>
-  <input type="text" id="model" name="model" placeholder="Ipnone 12"><br>
+  <input type="text" id="model" name="model" placeholder="Ipnone 12" required><br>
   <label for="os">OS:</label><br>
-  <input type="text" id="os" name="os" placeholder="IOS"><br>
+  <input type="text" id="os" name="os" placeholder="IOS" required><br>
   <label for="screensize">Screensize:</label><br>
-  <input type="number" id="screensize" name="screensize" placeholder='5"'><br>
+  <input type="number" id="screensize" name="screensize" placeholder='5"' required><br>
   <label for="image">Image URL:</label><br>
-  <input type="text" id="image" name="image" placeholder="https://"><br>
+  <input type="text" id="image" name="image" placeholder="https://" required><br><br>
   <input type="submit" value="Add product">
 </form>
 </td>
@@ -92,15 +97,16 @@
 </table>
 </section>
 
-
+<footer>
 <div class="sources" id="sources">Sources:
 <nav>
 <ul class="sources">
-<li><a href="https://www.apple.com/">APPLE</a></li>
-<li><a href="https://uk.wikipedia.org/">WIKIPEDIA</a></li>
-<li><a href="https://www.amazon.nl/">AMAZON</a></li>
+<li class="sources"><a href="https://www.apple.com/">APPLE</a></li>
+<li class="sources"><a href="https://uk.wikipedia.org/">WIKIPEDIA</a></li>
+<li class="sources"><a href="https://www.amazon.nl/">AMAZON</a></li>
 </ul>
 </nav>
 </div>
+</footer>
 </body>
 </html>
