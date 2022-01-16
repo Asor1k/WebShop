@@ -2,8 +2,8 @@
   margin:0; padding:0;
 }
 body {
-  background-image: url("https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.competitivefutures.com%2Fwp-content%2Fuploads%2F2015%2F04%2F1920x1080-light-blue-solid-color-background.jpg&f=1&nofb=1%22");
-  background: rgb(173,216,230);
+  background-image: url("https://t4.ftcdn.net/jpg/04/47/16/33/240_F_447163339_06vRU09ZsJDURxYL3qAmjyRr5u5tziWf.jpg");
+
   font: 16px Arial, Helvetica, sans-serif;
   padding: 15px 30px;
 }
@@ -33,6 +33,12 @@ ol{
   list-style-image: none;
   margin-left: 30px;
 }
+dl{
+  margin-left: 20px;
+}
+dl dd{
+  text-indent: 30px;
+}
 #why{
   list-style-type:disc;
   list-style-position:inside;
@@ -40,6 +46,14 @@ ol{
   background-repeat: no-repeat;
 	background-position: left center;
 }
+#why2{
+  list-style-type:disc;
+  list-style-position:inside;
+  list-style-image:url("https://www.shareicon.net/data/16x16/2016/07/25/801542_wink_512x512.png");
+  background-repeat: no-repeat;
+	background-position: left center;
+}
+
 ul{
   margin: 10px 50px 20px;
 }
@@ -88,7 +102,7 @@ div.table{
 table  {
   border-spacing: 1vw;
 	border-color: blue;
-  width:90%;
+  width:100%;
   caption-side: top;
 
   height: auto;
@@ -122,11 +136,14 @@ td > p {
 
 td img{
   width:100%;
-  height: auto;
+  /*min-width: 150px;
+  max-width: 250px;
+  min-height: 150px;
+  max-height: 250px;*/
 }
 
 input:focus{
-  background-color: lightgrey;
+  background: lightgrey;
   color:black;
 }
 
