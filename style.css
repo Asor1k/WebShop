@@ -29,8 +29,11 @@ h3{
   font-size: 30px;
   color: rgb(0,30,120);
 }
-
-li.why{
+ol{
+  list-style-image: none;
+  margin-left: 30px;
+}
+#why{
   list-style-type:disc;
   list-style-position:inside;
   list-style-image:url("https://www.shareicon.net/data/16x16/2016/07/25/801542_wink_512x512.png");
@@ -40,8 +43,10 @@ li.why{
 ul{
   margin: 10px 50px 20px;
 }
-ul.why{
+#cite{
+  text-align:right;
 }
+
 ul.sources{
   list-style: square inside url("https://cdn.icon-icons.com/icons2/2348/PNG/32/link_icon_142996.png");
   font-size: 20px;
@@ -76,11 +81,18 @@ p.sub-title
   font-variant: small-caps;
 }
 
+div.table{
+  overflow-x:auto;
+}
+
 table  {
-  border-spacing: 20px;
+  border-spacing: 1vw;
 	border-color: blue;
   width:90%;
   caption-side: top;
+
+  height: auto;
+  overflow-x: auto;
 }
 table td.item
 {
@@ -92,12 +104,13 @@ table td.item
 table caption{
   font-size: 30px;
   font-weight: bold;
+  text-align: left;
   color: rgb(0,30,120);
 }
 
 td > p {
 
-  font-size: 1.2em;
+  font-size: 15px;
   border: 1px solid black;
   background-color: lightgrey;
   margin: 0;
@@ -105,6 +118,16 @@ td > p {
   border: 1px solid red;
   font: 1.2em Arial, Helvetica, sans-serif; */
   padding: 6px 12px;
+}
+
+td img{
+  width:100%;
+  height: auto;
+}
+
+input:focus{
+  background-color: lightgrey;
+  color:black;
 }
 
 a:link {
@@ -121,15 +144,6 @@ a:hover {
 
 a:active {
   color: #FF0000;
-}
-input:focus{
-  background-color: lightgrey;
-  color:black;
-}
-
-td img{
-  width:100%;
-  min-height: 150px;
 }
 
 @media print {
