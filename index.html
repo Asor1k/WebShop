@@ -4,8 +4,11 @@
       <link rel="stylesheet" href="style.css">
       <title>Mobile web shop</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <script src="jquery-3.6.0.js"></script>
+      <script src="main.js"></script>
    </head>
    <body>
+            <button id="place">Place</button>
       <section>
          <h1><strong>Online <em>mobile</em> Shop</strong> </h1>
          <h2><em>This is the one where you find your phone</em></h2>
@@ -51,10 +54,12 @@
             <dd>Most Android phones are made with clean design and stunning performance.</dd>
          </dl>
          <br>
+         <button id="sortAlph">Sort</button>
+
          <div class="table">
             <table>
                <caption>Products:</caption>
-               <tbody>
+               <tbody id="products">
                   <tr>
                      <td class="item">
                         <img src="https://kontakt.az/wp-content/uploads/2021/09/1_304241-min.png" alt="Apple phone"/>
@@ -85,7 +90,7 @@
                         <p> Screensize: 6.81" </p>
                      </td>
                      <td>
-                        <form action="https://wt.ops.labs.vu.nl/api22/df0ea8cd" method="post">
+                        <form action="https://wt.ops.labs.vu.nl/api22/25fbcf55" method="post">
                            <label for="brand">Brand:</label><br>
                            <input type="text" id="brand" name="brand" placeholder="Apple" required><br>
                            <label for="model">Model:</label><br>
