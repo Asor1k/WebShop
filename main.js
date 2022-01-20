@@ -3,24 +3,55 @@ $("#place").click(function()
   alert("Hi");
 });
 
-$("#sortAlph").click(function()
+$("#sort").click(function()
 {
-  console.log("Work");
-  let requestData = [];
-  $.get("https://wt.ops.labs.vu.nl/api22/25fbcf55", requestData, function(data)
-{
-
-  $("#products").html(getProducts(data));
-
-}, "json");
-
+  getSortedPruductsFromDB();
 });
 
+getSortedProducts = (data) =>
+{
+  let products = [];
+  let names = [];
+  for (let dataChunk of data)
+  {
+    names.push(dataChunk.brand);
+  }
+  names.sort();
+
+  console.log(names);
+  let ids = [];
+
+  for (let name of names)
+  {
+    for (let dataChunk of data)
+    {
+      if (name == dataChunk.brand)
+      {
+        let wasPublished = false;
+        for(let id of ids)
+        {
+          if(id == dataChunk.id)
+          {
+            wasPublished = true;
+            break;
+          }
+        }
+        if(!wasPublished)
+        {
+          products.push(dataChunk);
+          ids.push(dataChunk.id);
+        }
+      }
+    }
+  }
+
+  console.log(products);
+  return products;
+}
 
 getProducts = (data) =>
 {
   let products = "";
-  console.log(data);
   let numberOfPhones = 0;
   products += "<tr>";
   for(let dataChunk of data)
@@ -53,3 +84,22 @@ getProducts = (data) =>
   products += "</tr>";
   return products;
 }
+
+getProductsFromDB = () =>
+{
+  let requestData = [];
+  $.get("https://wt.ops.labs.vu.nl/api22/25fbcf55", requestData, function(data)
+  {
+    $("#products").html(getProducts(data));
+  }, "json");
+}
+getSortedPruductsFromDB = () =>
+{
+  let requestData = [];
+  $.get("https://wt.ops.labs.vu.nl/api22/25fbcf55", requestData, function(data)
+  {
+    $("#products").html(getProducts(getSortedProducts(data)));
+  }, "json");
+}
+
+getProductsFromDB();
