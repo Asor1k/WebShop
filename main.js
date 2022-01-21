@@ -1,25 +1,90 @@
+let options = "<select  id=\"azSort\" name=Brand><option value = \"az\" > A to Z</option><option value = \"za\" > Z to A </option></select>";
+let sorters = [0,0,0,0];
+let sortersNames = ["brand", "os", "model", "screen"];
+let numberOptions = "<select id=\"azSort\" name=Brand><option value = \"az\" > Lo to Hi</option><option value = \"za\" > Hi to Lo </option></select>";
+
+
 $("#place").click(function()
 {
   alert("Hi");
 });
 
+$("#azSort").click(function()
+{
+    let sortIndex = -1;
+    for (let i=0; i < sorters.length; i++)
+    {
+      if(num == 1)
+        sortIndex = i;
+    }
+    console.log("sort");
+    var value = $(this).val();
+    if (value == "az")
+    {
+      getSortedPruductsFromDB(sortersNames[sortIndex]);
+    }
+    else {
+      getSortedPruductsFromDB(sortersNames[sortIndex], true);
+    }
+});
+
 $("#sortBrand").click(function()
 {
+  if(sorters[0] == 1) return;
   getSortedPruductsFromDB("brand");
+  clearSorters();
+  $("#sortBrand").html("Brand "+options);
+  sorters[0] = 1;
+  sorters[1] = 0;
+  sorters[2] = 0;
+  sorters[3] = 0;
 });
 
 $("#sortOs").click(function()
 {
+  if(sorters[1] == 1) return;
   getSortedPruductsFromDB("os");
+  clearSorters();
+  $("#sortOs").html("OS "+options);
+  sorters[0] = 0;
+  sorters[1] = 1;
+  sorters[2] = 0;
+  sorters[3] = 0;
 });
 
 $("#sortModel").click(function()
 {
+  if(sorters[2] == 1) return;
   getSortedPruductsFromDB("model");
+  clearSorters();
+  $("#sortModel").html("Model "+options);
+  sorters[0] = 0;
+  sorters[1] = 0;
+  sorters[2] = 1;
+  sorters[3] = 0;
 });
 
+$("#sortScreen").click(function()
+{
+  if(sorters[3] == 1) return;
+  getSortedPruductsFromDB("screen");
+  clearSorters();
+  $("#sortScreen").html("Screensize "+numberOptions);
+  sorters[0] = 0;
+  sorters[1] = 0;
+  sorters[2] = 0;
+  sorters[3] = 1;
+});
 
-getSortedProducts = (data, sortType) =>
+clearSorters = () =>
+{
+  $("#sortBrand").html("Brand");
+  $("#sortModel").html("Model");
+  $("#sortOs").html("OS");
+  $("#sortScreen").html("Screensize");
+}
+
+getSortedProducts = (data, sortType, isReverse) =>
 {
   let products = [];
   let values = [];
@@ -37,8 +102,19 @@ getSortedProducts = (data, sortType) =>
     {
       values.push(dataChunk.model.toUpperCase());
     }
+    if(sortType == "screen")
+    {
+      values.push(dataChunk.screensize);
+    }
   }
-  values.sort();
+  if(sortType == "screen")
+  {
+    values.sort((a,b) => a-b);
+  }
+  else
+  {
+    values.sort();
+  }
 
   let ids = [];
 
@@ -59,6 +135,10 @@ getSortedProducts = (data, sortType) =>
       {
         chunkValue = dataChunk.model.toUpperCase();
       }
+      if (sortType == "screen")
+      {
+        chunkValue = dataChunk.screensize;
+      }
       if (value == chunkValue)
       {
         let wasPublished = false;
@@ -78,8 +158,8 @@ getSortedProducts = (data, sortType) =>
       }
     }
   }
-  
-  products.reverse();
+  if(isReverse)
+   products.reverse();
   return products;
 }
 
@@ -127,12 +207,12 @@ getProductsFromDB = () =>
     $("#products").html(getProducts(data));
   }, "json");
 }
-getSortedPruductsFromDB = (sortType) =>
+getSortedPruductsFromDB = (sortType, isReverse) =>
 {
   let requestData = [];
   $.get("https://wt.ops.labs.vu.nl/api22/25fbcf55", requestData, function(data)
   {
-    $("#products").html(getProducts(getSortedProducts(data, sortType)));
+    $("#products").html(getProducts(getSortedProducts(data, sortType, isReverse)));
   }, "json");
 }
 
