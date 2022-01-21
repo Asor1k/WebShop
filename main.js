@@ -3,29 +3,63 @@ $("#place").click(function()
   alert("Hi");
 });
 
-$("#sort").click(function()
+$("#sortBrand").click(function()
 {
-  getSortedPruductsFromDB();
+  getSortedPruductsFromDB("brand");
 });
 
-getSortedProducts = (data) =>
+$("#sortOs").click(function()
+{
+  getSortedPruductsFromDB("os");
+});
+
+$("#sortModel").click(function()
+{
+  getSortedPruductsFromDB("model");
+});
+
+
+getSortedProducts = (data, sortType) =>
 {
   let products = [];
-  let names = [];
+  let values = [];
   for (let dataChunk of data)
   {
-    names.push(dataChunk.brand);
+    if (sortType == "brand")
+    {
+        values.push(dataChunk.brand.toUpperCase());
+    }
+    if(sortType == "os")
+    {
+      values.push(dataChunk.os.toUpperCase());
+    }
+    if(sortType == "model")
+    {
+      values.push(dataChunk.model.toUpperCase());
+    }
   }
-  names.sort();
+  values.sort();
 
-  console.log(names);
   let ids = [];
 
-  for (let name of names)
+  for (let value of values)
   {
     for (let dataChunk of data)
     {
-      if (name == dataChunk.brand)
+      let chunkValue;
+      if (sortType == "brand")
+      {
+          chunkValue = dataChunk.brand.toUpperCase();
+      }
+      if(sortType == "os")
+      {
+        chunkValue = dataChunk.os.toUpperCase();
+      }
+      if(sortType == "model")
+      {
+        chunkValue = dataChunk.model.toUpperCase();
+      }
+      if (value == chunkValue)
       {
         let wasPublished = false;
         for(let id of ids)
@@ -44,8 +78,8 @@ getSortedProducts = (data) =>
       }
     }
   }
-
-  console.log(products);
+  
+  products.reverse();
   return products;
 }
 
@@ -60,11 +94,11 @@ getProducts = (data) =>
       products += "</tr> \n"+"<tr>";
     }
     products += "<td class='item'>" +
-    "<img src='" + dataChunk.image +"' alt='" + dataChunk.brand+"'</img>"+
+    "<img src='" + dataChunk.image +"' alt='" + dataChunk.brand+"'>"+
        "<p>Brand:"+ dataChunk.brand + "</p>"+
        "<p>OS:"+ dataChunk.os +"</p>" +
        "<p>Model:"+ dataChunk.model + "</p>" +
-       "<p> Screensize:" + dataChunk.screensize + "</p>" +
+       "<p>Screensize:" + dataChunk.screensize + "</p>" +
     "</td>";
       numberOfPhones++;
   }
@@ -93,13 +127,13 @@ getProductsFromDB = () =>
     $("#products").html(getProducts(data));
   }, "json");
 }
-getSortedPruductsFromDB = () =>
+getSortedPruductsFromDB = (sortType) =>
 {
   let requestData = [];
   $.get("https://wt.ops.labs.vu.nl/api22/25fbcf55", requestData, function(data)
   {
-    $("#products").html(getProducts(getSortedProducts(data)));
+    $("#products").html(getProducts(getSortedProducts(data, sortType)));
   }, "json");
 }
 
-getProductsFromDB();
+//getProductsFromDB();
