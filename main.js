@@ -1,20 +1,48 @@
-let options = "<select  id=\"azSort\" name=Brand><option value = \"az\" > A to Z</option><option value = \"za\" > Z to A </option></select>";
+let options = "<select  class=\"azSort\" name='Brand'><option value = \"az\" > A to Z</option><option value = \"za\" > Z to A </option></select>";
 let sorters = [0,0,0,0];
 let sortersNames = ["brand", "os", "model", "screen"];
-let numberOptions = "<select id=\"azSort\" name=Brand><option value = \"az\" > Lo to Hi</option><option value = \"za\" > Hi to Lo </option></select>";
-
+let numberOptions = "<select class=\"azSort\" name='screensize'><option value = \"az\" > Lo to Hi</option><option value = \"za\" > Hi to Lo </option></select>";
+let initialData = [];
+let allProducts = [];
 
 $("#place").click(function()
 {
   alert("Hi");
 });
 
-$("#azSort").click(function()
-{
+$("#reset").click(function(){
+  $.get("https://wt.ops.labs.vu.nl/api22/25fbcf55/reset", function(data)
+  {
+    $("#products").html(getProducts(initialData));
+  }, "json");
+});
+$(document).on("submit","#hui",function(event){
+  event.preventDefault();
+  
+  let bodi = {
+    brand:$("#brand").val(),
+    model:$("#model").val(),
+    os:$("#os").val(),
+    screensize:$("#screensize").val(),
+    image:$("#image").val()
+  }
+  $.post( "https://wt.ops.labs.vu.nl/api22/25fbcf55", bodi)
+  .done(function( data ) {
+  let productUrl = data.URI;
+  $.get(productUrl, function(data2)
+  {
+    allProducts.push(data2);
+    $("#products").html(getProducts(allProducts));
+    clearSorters();
+  }, "json");
+  });
+});
+
+$(document).on("change",".azSort",function(){
     let sortIndex = -1;
     for (let i=0; i < sorters.length; i++)
     {
-      if(num == 1)
+        if(sorters[i] == 1)
         sortIndex = i;
     }
     console.log("sort");
@@ -31,8 +59,8 @@ $("#azSort").click(function()
 $("#sortBrand").click(function()
 {
   if(sorters[0] == 1) return;
-  getSortedPruductsFromDB("brand");
   clearSorters();
+  getSortedPruductsFromDB("brand");
   $("#sortBrand").html("Brand "+options);
   sorters[0] = 1;
   sorters[1] = 0;
@@ -43,8 +71,8 @@ $("#sortBrand").click(function()
 $("#sortOs").click(function()
 {
   if(sorters[1] == 1) return;
-  getSortedPruductsFromDB("os");
   clearSorters();
+  getSortedPruductsFromDB("os");
   $("#sortOs").html("OS "+options);
   sorters[0] = 0;
   sorters[1] = 1;
@@ -55,8 +83,8 @@ $("#sortOs").click(function()
 $("#sortModel").click(function()
 {
   if(sorters[2] == 1) return;
-  getSortedPruductsFromDB("model");
   clearSorters();
+  getSortedPruductsFromDB("model");
   $("#sortModel").html("Model "+options);
   sorters[0] = 0;
   sorters[1] = 0;
@@ -67,14 +95,15 @@ $("#sortModel").click(function()
 $("#sortScreen").click(function()
 {
   if(sorters[3] == 1) return;
-  getSortedPruductsFromDB("screen");
   clearSorters();
+  getSortedPruductsFromDB("screen");
   $("#sortScreen").html("Screensize "+numberOptions);
   sorters[0] = 0;
   sorters[1] = 0;
   sorters[2] = 0;
   sorters[3] = 1;
 });
+
 
 clearSorters = () =>
 {
@@ -86,81 +115,30 @@ clearSorters = () =>
 
 getSortedProducts = (data, sortType, isReverse) =>
 {
-  let products = [];
-  let values = [];
-  for (let dataChunk of data)
+  let products = [...data];
+
+  if (sortType == "brand")
   {
-    if (sortType == "brand")
-    {
-        values.push(dataChunk.brand.toUpperCase());
-    }
-    if(sortType == "os")
-    {
-      values.push(dataChunk.os.toUpperCase());
-    }
-    if(sortType == "model")
-    {
-      values.push(dataChunk.model.toUpperCase());
-    }
-    if(sortType == "screen")
-    {
-      values.push(dataChunk.screensize);
-    }
+      products.sort((a, b) => a.brand.localeCompare(b.brand));
+  }
+  if(sortType == "os")
+  {
+    products.sort((a, b) => a.os.localeCompare(b.os));
+  }
+  if(sortType == "model")
+  {
+    products.sort((a, b) => a.model.localeCompare(b.model));
   }
   if(sortType == "screen")
   {
-    values.sort((a,b) => a-b);
-  }
-  else
-  {
-    values.sort();
+    products.sort((a,b) => a.screensize-b.screensize);
   }
 
-  let ids = [];
-
-  for (let value of values)
-  {
-    for (let dataChunk of data)
-    {
-      let chunkValue;
-      if (sortType == "brand")
-      {
-          chunkValue = dataChunk.brand.toUpperCase();
-      }
-      if(sortType == "os")
-      {
-        chunkValue = dataChunk.os.toUpperCase();
-      }
-      if(sortType == "model")
-      {
-        chunkValue = dataChunk.model.toUpperCase();
-      }
-      if (sortType == "screen")
-      {
-        chunkValue = dataChunk.screensize;
-      }
-      if (value == chunkValue)
-      {
-        let wasPublished = false;
-        for(let id of ids)
-        {
-          if(id == dataChunk.id)
-          {
-            wasPublished = true;
-            break;
-          }
-        }
-        if(!wasPublished)
-        {
-          products.push(dataChunk);
-          ids.push(dataChunk.id);
-        }
-      }
-    }
-  }
-  if(isReverse)
-   products.reverse();
+  if(isReverse){
+  products.reverse();
+}
   return products;
+
 }
 
 getProducts = (data) =>
@@ -170,8 +148,8 @@ getProducts = (data) =>
   products += "<tr>";
   for(let dataChunk of data)
   {
-    if(numberOfPhones % 4 == 0){
-      products += "</tr> \n"+"<tr>";
+    if(numberOfPhones % 4 == 0 && numberOfPhones){
+      products += "</tr><tr>";
     }
     products += "<td class='item'>" +
     "<img src='" + dataChunk.image +"' alt='" + dataChunk.brand+"'>"+
@@ -182,7 +160,10 @@ getProducts = (data) =>
     "</td>";
       numberOfPhones++;
   }
-  products+= "<td><form action=\"https://wt.ops.labs.vu.nl/api22/25fbcf55\" method=\"post\">"+
+  if(numberOfPhones % 4 == 0 && numberOfPhones){
+    products += "</tr><tr>";
+  }
+  products+= "<td><form id='hui'>"+
         "<label for=\"brand\">Brand:</label><br>"+
         "<input type=\"text\" id=\"brand\" name=\"brand\" placeholder=\"Apple\" required><br>"+
         "<label for=\"model\">Model:</label><br>"+
@@ -203,7 +184,8 @@ getProductsFromDB = () =>
 {
   let requestData = [];
   $.get("https://wt.ops.labs.vu.nl/api22/25fbcf55", requestData, function(data)
-  {
+  { initialData = data;
+    allProducts = data;
     $("#products").html(getProducts(data));
   }, "json");
 }
