@@ -216,4 +216,4 @@ getSortedPruductsFromDB = (sortType, isReverse) =>
   }, "json");
 }
 
-//getProductsFromDB();
+getProductsFromDB();
