@@ -8,8 +8,11 @@ let allProducts = [];
 $(function ()
 {
 
+
+
 	$("#reset").click(function ()
 	{
+
 		$.get("https://wt.ops.labs.vu.nl/api22/25fbcf55/reset", function (data)
 		{
 			$("#products").html(getProducts(initialData));
@@ -62,6 +65,9 @@ $(function ()
 
 	$("#sortBrand").click(function ()
 	{
+		$.get("http://localhost:3000/hello", function(data){
+				console.log(data);
+		}, 'json');
 		if (sorters[0] == 1) return;
 		clearSorters();
 		getSortedPruductsFromDB("brand");
@@ -186,7 +192,7 @@ $(function ()
 			"<label for=\"image\">Image URL:</label><br>" +
 			"<input type=\"text\" id=\"image\" name=\"image\" placeholder=\"https://\" required><br><br>" +
 			"<input type=\"submit\" value=\"Add product\">" +
-			"</form></td>";
+			"</form></td>"+
 		"</tr>";
 		$products.append(form);
 	}
