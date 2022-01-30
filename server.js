@@ -1,5 +1,3 @@
-'use strict'
-
 // ###############################################################################
 // Web Technology at VU University Amsterdam
 // Assignment 3
@@ -35,27 +33,106 @@ let db = my_database('./phones.db');
 //
 // First, create an express application `app`:
 
-const express = require("express");
-const app = express();
-const cors = require('cors');
+var express = require("express");
+var app = express();
 
 // We need some middleware to parse JSON data in the body of our HTTP requests:
-const bodyParser = require("body-parser");
+var bodyParser = require("body-parser");
 app.use(bodyParser.json());
-app.use(cors());
 
 // ###############################################################################
 // Routes
-//
-// TODO: Add your routes here and remove the example routes once you know how
-//       everything works.
+
+app.get("/getAllItems", function(req, res) {
+	db.all(
+		"SELECT id, brand, model, os, image, screensize FROM phones",
+		function(err,rows){
+			if (err) {
+				res.status(400).json({ "status": false, "result": 'Failed!' });
+			 }
+			 else {
+				res.status(200).json({ "status": true, "result": rows });
+			}
+		}
+	)
+});
+
+app.post("/addNewItem", function(req, res) {
+	var bodi = req.body;
+	db.run(
+		`INSERT INTO phones (brand, model, os, image, screensize) VALUES (?, ?, ?, ?, ?)`,
+		[bodi['brand'], bodi['model'], bodi['os'], bodi['image'], bodi['screensize']],
+		function(err) {
+			if (err) {
+				res.status(400).json({ "status": false, "result": 'Failed to add!' });
+			 }
+			 else {
+				res.status(201).json({ "status": true, "result": `Successfully added! ID: ${this.lastID}` });
+			 }
+		}
+	)
+});
+
+
+app.get("/getPhone/:id", function(req, res) {
+	var phoneId = req.params.id;
+	db.all(
+		"SELECT id, brand, model, os, image, screensize FROM phones WHERE id=" + phoneId,
+		function(err,rows){
+			if (err) {
+				res.status(400).json({ "status": false, "result": 'Selecting item Failed!' });
+			 }
+			 else {
+				res.status(200).json({ "status": true, "result": rows });
+			 }
+
+
+		}
+	)
+});
+
+app.put("/updatePhone/:id", function(req, res) {
+	var phoneId = req.params.id;
+	var bodi = req.body;
+	db.run(
+		`UPDATE phones SET brand=?, model=?, os=?, image=?, screensize=? WHERE id=?`,
+		[bodi['brand'], bodi['model'], bodi['os'], bodi['image'], bodi['screensize'], phoneId],
+		function(err){
+			if (err) {
+				res.status(400).json({ "status": false, "result": 'Update failed!' });
+			 }
+			 else {
+				res.status(200).json({ "status": true, "result": `${this.changes} item(s) Successfully Updated! ` });
+			 }
+
+		}
+	)
+});
+
+app.delete("/deletePhone/:id", function(req, res) {
+	var phoneId = req.params.id;
+	db.run(
+		"DELETE FROM phones WHERE id=" + phoneId,
+		function(err){
+			if (err) {
+				res.status(400).json({ "status": false, "result": 'Failed to delete!' });
+			 }
+			 else {
+				res.status(200).json({ "status": true, "result": `${this.changes} item(s) Successfully Deleted! ` });
+			 }
+
+
+		}
+	)
+});
+
 // ###############################################################################
 
 // This example route responds to http://localhost:3000/hello with an example JSON object.
 // Please test if this works on your own device before you make any changes.
 
 app.get("/hello", function(req, res) {
-    let response_body = {'Hello': 'World'} ;
+    response_body = {'Hello': 'World'} ;
 
     // This example returns valid JSON in the response, but does not yet set the
     // associated HTTP response header.  This you should do yourself in your
@@ -69,12 +146,14 @@ app.get("/hello", function(req, res) {
 app.get('/db-example', function(req, res) {
     // Example SQL statement to select the name of all products from a specific brand
     db.all(`SELECT * FROM phones WHERE brand=?`, ['Fairphone'], function(err, rows) {
-
-    	// TODO: add code that checks for errors so you know what went wrong if anything went wrong
+		if (err) {
+			res.status(400).send(err);
+		 }
+		 else {
+			// # Return db response as JSON
+			res.status(201).json(rows);
+		 }
     	// TODO: set the appropriate HTTP response headers and HTTP response codes here.
-
-    	// # Return db response as JSON
-    	return res.json(rows)
     });
 });
 
@@ -83,7 +162,6 @@ app.post('/post-example', function(req, res) {
 	console.log(req.body);
 	return res.json(req.body);
 });
-
 
 // ###############################################################################
 // This should start the server, after the routes have been defined, at port 3000:
@@ -94,7 +172,7 @@ console.log("Your Web server should be up and running, waiting for requests to c
 // ###############################################################################
 // Some helper functions called above
 function my_database(filename) {
-	// Conncect to db by opening filename, create filename if it does not exist:
+	// Conncect to db by opening filename, create filename if it does not exist:router.
 	var db = new sqlite.Database(filename, (err) => {
   		if (err) {
 			console.error(err.message);
@@ -105,12 +183,12 @@ function my_database(filename) {
 	db.serialize(() => {
 		db.run(`
         	CREATE TABLE IF NOT EXISTS phones
-        	(id 	INTEGER PRIMARY KEY,
-        	brand	CHAR(100) NOT NULL,
-        	model 	CHAR(100) NOT NULL,
-        	os 	CHAR(10) NOT NULL,
-        	image 	CHAR(254) NOT NULL,
-        	screensize INTEGER NOT NULL
+        	(id INTEGER PRIMARY KEY,
+        	brand CHAR(100) NOT NULL,
+        	model CHAR(100) NOT NULL,
+        	os CHAR(10) NOT NULL,
+        	image CHAR(254) NOT NULL,
+        	screensize 	INTEGER NOT NULL
         	)`);
 		db.all(`select count(*) as count from phones`, function(err, result) {
 			if (result[0].count == 0) {
