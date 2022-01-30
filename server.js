@@ -3,12 +3,6 @@
 const sqlite = require('sqlite3').verbose();
 let db = my_database('./phones.db');
 
-// ###############################################################################
-// The database should be OK by now. Let's setup the Web server so we can start
-// defining routes.
-//
-// First, create an express application `app`:
-
 var express = require("express");
 var app = express();
 
