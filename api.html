@@ -1,17 +1,37 @@
 <!DOCTYPE html>
 <head>
-<link rel="stylesheet" href="apiStyle.css">
+<style>
+table {
+	border-spacing: 1vw;
+	width: 70%;
+	caption-side: top;
+	height: auto;
+}
+td{
+  text-align: center;
+}
+</style>
 </head>
 <body>
+  <h2>Installation guide</h2>
+  <p>This is the nodejs server API. To launch the server you need to <a href="https://nodejs.org/en/"> install nodejs</a>.</p>
+  <p>Libraries that need to be installed using npm:</p>
+  <ol>
+    <li>sqlite3</li>
+    <li>express</li>
+  </ol>
+  <p>Example: <pre>npm install sqlite</pre></p>
+  <p> To launch the server navigate to the folder where you saved the server.js file and launch it via cmd command <pre>node server.js</pre></p>
+<section>
 <h2>Retrive the full data</h2>
 <p>Retrives all phones data that are stored in the data base</p>
-<h3>GET /data</h3>
+<h3>GET /getAllItems</h3>
 <h4>Endpoint URL</h4>
-<p class="url">http:/localhost:3000/data</p>
+<p class="url">http:/localhost:3000/getAllItems</p>
 
 <h4>Example requests</h4>
 <pre>
-  curl http:/localhost:3000/data
+  curl http:/localhost:3000/getAllItems
 </pre>
 <h4>Example responses</h4>
 <p>Response is the array of objects. Each object has:</p>
@@ -71,14 +91,28 @@
   }]
 }
 </pre>
-<h2>Retrive the phone data by phone id</h1>
+<table>
+  <th>Status code</th>
+  <th>Description</th>
+  <tr>
+    <td>200</td>
+    <td>OK - The request has succeeded. The client can read the result of the request in the data object of response</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>Bad Request - The request could not be understood by the server due to malformed syntax.</td>
+  </tr>
+</table>
+</section>
+<section>
+<h2>Retrive the phone data by phone id</h2>
 <p>Retrives the phone data using its id in database</p>
-<h3>GET /data/:id</h2>
+<h3>GET /getPhone/:id</h3>
 <h4>Endpoint URL</h4>
-<p class="url">http:/localhost:3000/data/:id</p>
+<p class="url">http:/localhost:3000/getPhone/:id</p>
 <h4>Example requests</h4>
 <pre>
-  curl http:/localhost:3000/data/2
+  curl http:/localhost:3000/getPhone/2
 </pre>
 <h4>Query parameters:</h4>
 <table>
@@ -93,11 +127,46 @@
 </table>
 <h4>Example responses</h4>
 <p>Response is the data object with:</p>
+<table>
+  <th>Name</th>
+  <th>Type</th>
+  <th>Description</th>
+  <tr>
+    <td>id</td>
+    <td>integer</td>
+    <td>Unique identifier of the phone in database</td>
+</tr>
+<tr>
+  <td>brand</td>
+  <td>string</td>
+  <td>The brand name of the phone</td>
+</tr>
+<tr>
+  <td>model</td>
+  <td>string</td>
+  <td>The model of the phone</td>
+</tr>
+<tr>
+  <td>os</td>
+  <td>string</td>
+  <td>The os of the phone</td>
+</tr>
+<tr>
+  <td>image</td>
+  <td>string</td>
+  <td>Direct link to the image of the phone</td>
+</tr>
+<tr>
+  <td>screensize</td>
+  <td>integer</td>
+  <td>The screensize of the phone</td>
+</tr>
+</table>
 <p>MIME format: text/json</p>
 <pre>
 {
   "data":
-  {
+   {
     "id": 2,
     "brand":"Samsung",
     "model":"Samsung S21",
@@ -107,4 +176,163 @@
   }
 }
 </pre>
+<table>
+  <th>Status code</th>
+  <th>Description</th>
+  <tr>
+    <td>200</td>
+    <td>OK - The request has succeeded. The client can read the result of the request in the data object of response</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>Bad Request - The request could not be understood by the server due to malformed syntax.</td>
+  </tr>
+</table>
+</section>
+<section>
+<h2>Add new phone</h2>
+<p>Adds new item(phone data) to the database</p>
+<h3>POST /addNewItem</h3>
+<h4>Endpoint URL</h4>
+<p class="url">http:/localhost:3000/addNewItem</p>
+<h4>Example requests</h4>
+<pre>
+  curl http://localhost:3000/addNewItem?brand=Apple&model=Iphone12&os=IOS&image=https://mobiel-product.imgix.net/q384zbe1fthns9irqpryj2qlwxum&screensize=6
+</pre>
+<h4>Query parameters:</h4>
+<table>
+  <th>Name</th>
+  <th>Type</th>
+  <th>Description</th>
+<tr>
+  <td>brand</td>
+  <td>string</td>
+  <td>The brand name of the phone</td>
+</tr>
+<tr>
+  <td>model</td>
+  <td>string</td>
+  <td>The model of the phone</td>
+</tr>
+<tr>
+  <td>os</td>
+  <td>string</td>
+  <td>The os of the phone</td>
+</tr>
+<tr>
+  <td>image</td>
+  <td>string</td>
+  <td>Direct link to the image of the phone</td>
+</tr>
+<tr>
+  <td>screensize</td>
+  <td>integer</td>
+  <td>The screensize of the phone</td>
+</tr>
+</table>
+<table>
+  <th>Status code</th>
+  <th>Description</th>
+  <tr>
+    <td>201</td>
+    <td>Created - The request has been fulfilled and resulted in a new phone data added</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>Bad Request - The request could not be understood by the server due to malformed syntax.</td>
+  </tr>
+</table>
+</section>
+<section>
+<h2>Update phone data</h2>
+<p>Updates phone data using the phone id in the data base.</p>
+<h3>PUT /updatePhone/:id</h3>
+<h4>Endpoint URL</h4>
+<p class="url">http:/localhost:3000//updatePhone/:id</p>
+<h4>Example requests</h4>
+<pre>
+  curl http://localhost:3000/updatePhone/1?brand=Apple&model=Iphone12&os=IOS&image=https://mobiel-product.imgix.net/q384zbe1fthns9irqpryj2qlwxum&screensize=6
+</pre>
+<h4>Query parameters:</h4>
+<table>
+  <th>Name</th>
+  <th>Type</th>
+  <th>Description</th>
+  <tr>
+    <td>id</td>
+    <td>integer</td>
+    <td>Unique identifier of the phone in database</td>
+</tr>
+<tr>
+  <td>brand</td>
+  <td>string</td>
+  <td>The brand name of the phone</td>
+</tr>
+<tr>
+  <td>model</td>
+  <td>string</td>
+  <td>The model of the phone</td>
+</tr>
+<tr>
+  <td>os</td>
+  <td>string</td>
+  <td>The os of the phone</td>
+</tr>
+<tr>
+  <td>image</td>
+  <td>string</td>
+  <td>Direct link to the image of the phone</td>
+</tr>
+<tr>
+  <td>screensize</td>
+  <td>integer</td>
+  <td>The screensize of the phone</td>
+</tr>
+</table>
+<table>
+  <th>Status code</th>
+  <th>Description</th>
+  <tr>
+    <td>200</td>
+    <td>OK - The request has succeeded. The phone data was updated.</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>Bad Request - The request could not be understood by the server due to malformed syntax.</td>
+  </tr>
+</table>
+</section>
+<section>
+<h2>Delete phone data</h2>
+<p>Delete phone from database using the given id</p>
+<h3>DELETE /deletePhone/:id</h3>
+<h4>Endpoint URL</h4>
+<p class="url">http:/localhost:3000/deletePhone/:id</p>
+<h4>Example requests</h4>
+<pre>
+  curl http://localhost:3000/deletePhone/1</pre>
+<h4>Query parameters:</h4>
+<table>
+  <th>Name</th>
+  <th>Type</th>
+  <th>Description</th>
+  <tr>
+    <td>id</td>
+    <td>integer</td>
+    <td>Unique identifier of the phone in database</td>
+  </tr>
+</table>
+<table>
+  <th>Status code</th>
+  <th>Description</th>
+  <tr>
+    <td>200</td>
+    <td>OK - The request has succeeded. The phone data was deleted from database.</td>
+  </tr>
+  <tr>
+    <td>400</td>
+    <td>Bad Request - The request could not be understood by the server due to malformed syntax.</td>
+  </tr>
+</table>
+</section>
 </body>
