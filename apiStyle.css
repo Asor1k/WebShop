@@ -1,0 +1,9 @@
+table {
+	border-spacing: 1vw;
+	width: 70%;
+	caption-side: top;
+	height: auto;
+}
+td{
+  text-align: center;
+}
